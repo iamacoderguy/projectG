@@ -24,6 +24,7 @@ const AuthenticationForm: React.FC<AuthenticationFormProps> = (props) => {
     event.preventDefault();
     
     if (isEmailValid(email) && isPasswordValid(password)) {
+      // Do login procedure
       onLogin();
     }
   };

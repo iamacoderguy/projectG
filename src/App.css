@@ -14,3 +14,17 @@ nav {
   margin: auto;
   padding: 0.5rem;
 }
+
+.actionContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.actionContainer p {
+  margin: 0 10px 0 0;
+  align-self: center;
+}
+
+.actionContainer button:not(:last-child) {
+  margin-right: 10px;
+}

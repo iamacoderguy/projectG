@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import './Button.css';
 
 type ButtonProps = {
   children: string;
   disabled?: boolean;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
+  className?: string;
 }
 
 const Button: React.FC<ButtonProps> = (props) => {
-  const { children, disabled } = props;
+  const { children, ...otherProps } = props;
 
   return (
-    <button disabled={disabled}>{children}</button>
+    <button {...otherProps}>{children}</button>
   );
 };
 
