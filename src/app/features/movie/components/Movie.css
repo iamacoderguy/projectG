@@ -1,0 +1,35 @@
+.movieContainer {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  width: 80%;
+}
+
+.video {
+  flex: 1;
+  overflow: hidden;
+  margin-right: 50px;
+  min-height: 300px;
+  max-height: max-content;
+}
+
+.video iframe {
+  height: 100%;
+  width: 100%;
+}
+
+.info {
+  flex: 1;
+}
+
+.info p {
+  margin: 0;
+}
+
+.info strong {
+  color: #e74c3c;
+}
+
+.info span:not(:last-child) {
+  margin-right: 10px;
+}

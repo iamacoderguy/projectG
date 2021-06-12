@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
 import AuthenticationForm from './app/features/auth/AuthenticationForm';
-import MovieListPage from './app/features/movie/MovieListPage';
+import MovieListPage from './app/features/movie/pages/MovieListPage';
 import Button from './app/components/button/Button';
 
 const App: React.FC = () => {
