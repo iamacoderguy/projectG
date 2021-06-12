@@ -9,6 +9,10 @@ type AuthenticationFormProps = {
 }
 
 const AuthenticationForm: React.FC<AuthenticationFormProps> = (props) => {
+  const {
+    onLogin,
+  } = props;
+
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
   const [ emailTouched, setEmailTouched ] = useState(false);
@@ -19,6 +23,9 @@ const AuthenticationForm: React.FC<AuthenticationFormProps> = (props) => {
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     
+    if (isEmailValid(email) && isPasswordValid(password)) {
+      onLogin();
+    }
   };
 
   const handleEmailChange = (e: React.FormEvent<HTMLInputElement>) => {

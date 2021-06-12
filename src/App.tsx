@@ -11,7 +11,7 @@ const App: React.FC = (props) => {
   const renderMainPage = () => {
     let actions: React.ReactElement | null = null;
     if (isLoggedIn) {
-
+      actions = <p>Logged In</p>;
     } else {
       actions = <AuthenticationForm onLogin={() => setIsLoggedIn(true)}/>;
     }
