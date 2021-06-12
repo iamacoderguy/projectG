@@ -41,6 +41,7 @@ const App: React.FC = () => {
           </div>
           {actions}
         </nav>
+        {/* Get logged in user info from auth module and pass to movie */}
         <MovieListPage />
       </>
     );
