@@ -3,13 +3,14 @@ import './Button.css';
 
 type ButtonProps = {
   children: string;
+  disabled?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = (props) => {
-  const { children } = props;
+  const { children, disabled } = props;
 
   return (
-    <button>{children}</button>
+    <button disabled={disabled}>{children}</button>
   );
 };
 

@@ -1,28 +1,26 @@
-import React from 'react';
+import React, { ChangeEventHandler, FocusEventHandler } from 'react';
 import './Input.css';
 
 type InputProps = {
   isError?: boolean;
-  errorMsg?: string;
   type: string;
   placeholder: string;
   id: string;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
+  onBlur?: FocusEventHandler<HTMLInputElement>;
 }
 
 const Input: React.FC<InputProps> = (props) => {
   const { 
     isError,
-    errorMsg,
-    type,
-    placeholder,
-    id,
+    ...otherProps
   } = props;
   const className = isError ? 'form-control error' : 'form-control';
 
+
   return (
     <div className={className}>
-      <input type={type} placeholder={placeholder} id={id}/>
-      {isError && errorMsg && errorMsg !== '' && <small>{errorMsg}</small>}
+      <input {...otherProps} />
     </div>
   );
 };
