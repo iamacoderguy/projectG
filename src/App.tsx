@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
+import AuthenticationForm from './app/features/auth/AuthenticationForm';
+import MovieListPage from './app/features/movies/MovieListPage';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App: React.FC = (props) => {
+  const [ isLoggedIn, setIsLoggedIn ] = useState(false);
+
+  const renderMainPage = () => {
+    let actions: React.ReactElement | null = null;
+    if (isLoggedIn) {
+
+    } else {
+      actions = <AuthenticationForm onLogin={() => setIsLoggedIn(true)}/>;
+    }
+
+    return (
+      <>
+        <nav className="container">
+          <div className="logo">
+            <FontAwesomeIcon icon={faHome} /> Funny Movies
+          </div>
+          {actions}
+        </nav>
+        <MovieListPage />
+      </>
+    );
+  };
+
+  return renderMainPage();
+};
 
 export default App;
