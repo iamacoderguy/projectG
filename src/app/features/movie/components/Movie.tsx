@@ -3,6 +3,7 @@ import { Movie as MovieData } from '../Movie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-regular-svg-icons';
 import './Movie.css';
+import { truncate } from 'src/app/utils/string';
 
 type MovieProps = {
   movie: MovieData;
@@ -30,7 +31,7 @@ const Movie: React.FC<MovieProps> = (props) => {
           <span>{movie.downVotes} <FontAwesomeIcon icon={faThumbsDown}/></span>
         </div>
         <p>Description:</p>
-        <i>{movie.description}</i>
+        <i>{truncate(movie.description, 300)}</i>
       </div>
     </div>
   );
