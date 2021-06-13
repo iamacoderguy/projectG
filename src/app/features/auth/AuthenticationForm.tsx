@@ -66,7 +66,7 @@ const AuthenticationForm: React.FC<AuthenticationFormProps> = (props) => {
     <form action='' className='authForm' id='authForm' onSubmit={handleFormSubmit}>
       <Input
         type='email'
-        placeholder='email'
+        placeholder='Email'
         id='email'
         onChange={handleEmailChange}
         onBlur={handleEmailBlur}
@@ -74,7 +74,7 @@ const AuthenticationForm: React.FC<AuthenticationFormProps> = (props) => {
       />
       <Input 
         type='password'
-        placeholder='password'
+        placeholder='Password'
         id='password'
         onChange={handlePasswordChange}
         onBlur={handlePasswordBlur}
