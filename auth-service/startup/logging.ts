@@ -4,7 +4,7 @@ import winston from 'winston';
 import { Express } from 'express';
 require('express-async-errors');
 
-const debug = Debug('servera:config');
+const debug = Debug('funny-movies:logging');
 
 export default function (app: Express) {
   if (app.get('env') === 'development') {

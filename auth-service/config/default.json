@@ -1,4 +1,6 @@
 {
     "name": "funny movies auth service",
-    "jwtPrivateKey": ""
+    "jwtPrivateKey": "",
+    "dropboxKey": "",
+    "dropboxPath": ""
 }

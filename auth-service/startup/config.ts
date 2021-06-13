@@ -1,7 +1,7 @@
 import Debug from 'debug';
 import config from 'config';
 
-const debug = Debug('servera:config');
+const debug = Debug('funny-movies:config');
 
 export default function () {
   debug(config.get('name'));
