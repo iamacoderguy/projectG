@@ -2,5 +2,8 @@
     "name": "funny movies api",
     "jwtPrivateKey": "",
     "dropboxKey": "",
-    "dropboxPath": ""
+    "dropboxUserPath": "",
+    "dropboxMoviePath": "",
+    "youtubeDataAPIKey": "",
+    "youtubeDataAPIHost": "https://www.googleapis.com/youtube/v3"
 }
