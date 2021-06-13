@@ -1,0 +1,7 @@
+.movieListContainer {
+  padding: 30px 0;
+}
+
+.movieComponent:not(:last-child) {
+  margin-bottom: 50px;
+}
