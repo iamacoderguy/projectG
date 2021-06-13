@@ -15,7 +15,7 @@ import { GlobalContext } from './app/context/GlobalState';
 import { isNullOrWhitespace } from './app/utils/string';
 
 // TODO: Handle responsive
-// TODO: Write unit tests and integration tests
+// TODO: Write integration tests
 // TODO: Up vote and down vote
 
 const App: React.FC = () => {
