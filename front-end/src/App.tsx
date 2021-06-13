@@ -17,6 +17,8 @@ import { isNullOrWhitespace } from './app/utils/string';
 // TODO: Handle responsive
 // TODO: Write integration tests
 // TODO: Up vote and down vote
+// TODO: Encrypt front-end code
+// TODO: Encrypt password before sending to server
 
 const App: React.FC = () => {
   const history = useHistory();
