@@ -1,3 +1,8 @@
 {
-    "jwtPrivateKey": "a_jwtPrivateKey"
+    "jwtPrivateKey": "g_jwtPrivateKey",
+    "dropboxKey": "g_dropboxKey",
+    "dropboxUserPath": "g_dropboxUserPath",
+    "dropboxMoviePath": "g_dropboxMoviePath",
+    "youtubeDataAPIKey": "g_youtubeDataAPIKey",
+    "youtubeDataAPIHost": "https://www.googleapis.com/youtube/v3"
 }
