@@ -17,6 +17,7 @@ const MovieListPage: React.FC = () => {
   const { movies: moviesWithoutYoutubeData ,updateMovieList } = useContext(GlobalContext);
 
   useEffect(() => {
+    // Fetch data from database
     fetch('https://content.dropboxapi.com/2/files/download', {
       method: 'POST',
       headers: {
@@ -38,6 +39,7 @@ const MovieListPage: React.FC = () => {
   useEffect(() => {
     const ids = moviesWithoutYoutubeData.map(m => m.youtubeId);
 
+    // Fill pure data with youtube data
     fetch(stringUtils.format(youtubeAPIVideos, ids.join(',')))
       .then(async (res: Response) => {
         const result = await res.json();

@@ -17,31 +17,45 @@ const ShareAMoviePage: React.FC = () => {
   const { movies, updateMovieList } = useContext(GlobalContext);
   const history = useHistory();
 
-  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    
-    if (isURLValid(url)) {
-      const id = getYoutubeId(url);
 
-      if (!id) {
-        alert('Cannot get Youtube ID from the url');
-        return;
-      }
+    if (!isURLValid(url)) {
+      alert('Youtube URL is invalid');
+      return;
+    }
 
-      const movie: Movie = {
-        youtubeId: id,
-        userEmail: 'someone@gmail.com',
-        upVotes: 0,
-        downVotes: 0,
-        description: '',
-        title: '',
-      };
+    const id = getYoutubeId(url);
 
-      const newMovies = [ ...movies, movie ];
+    if (!id) {
+      alert('Cannot get Youtube ID from the url');
+      return;
+    }
 
-      setIsLoading(true);
+    const movie: Movie = {
+      youtubeId: id,
+      userEmail: 'someone@gmail.com',
+      upVotes: 0,
+      downVotes: 0,
+      description: '',
+      title: '',
+    };
 
-      fetch('https://content.dropboxapi.com/2/files/upload', {
+    setIsLoading(true);
+    const newMovies = await shareAMovie(movie);
+    if (!newMovies) {
+      setIsLoading(false);
+      return;
+    }
+
+    updateMovieList(newMovies);
+    history.push('/');
+  };
+
+  const shareAMovie = async (movie: Movie) => {
+    const newMovies = [ ...movies, movie ];
+    try {
+      await fetch('https://content.dropboxapi.com/2/files/upload', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${process.env.REACT_APP_DROPBOX_KEY}`,
@@ -52,15 +66,12 @@ const ShareAMoviePage: React.FC = () => {
           }),
         },
         body: JSON.stringify(newMovies),
-      })
-        .then(() => {
-          updateMovieList(newMovies);
-          history.push('/');
-        })
-        .catch((err) => {
-          alert(err);
-          setIsLoading(false);
-        });
+      });
+
+      return newMovies;
+    } catch (error) {
+      alert(error);
+      return;
     }
   };
 
