@@ -3,21 +3,34 @@ import Movie from '../components/Movie';
 import { Movie as MovieData } from '../Movie';
 import './MovieListPage.css';
 
+// TODO: Move to env
 // AIzaSyBqi9Po4moldIyK002uTe50vxsbxjtwOtQ
 // https://www.googleapis.com/youtube/v3/videos?id=rokGy0huYEA&key=AIzaSyBqi9Po4moldIyK002uTe50vxsbxjtwOtQ&part=snippet,contentDetails,statistics,status
 
-const sharedList = [
+const sharedList: MovieData[] = [
   {
-    id: 'rokGy0huYEA',
-    sharedBy: 'someone@gmail.com',
+    youtubeId: 'rokGy0huYEA',
+    userEmail: 'someone@gmail.com',
+    upVotes: 86,
+    downVotes: 12,
+    description: '',
+    title: '',
   },
   {
-    id: '94xpmb5UvNg',
-    sharedBy: 'someone@gmail.com',
+    youtubeId: '94xpmb5UvNg',
+    userEmail: 'someone@gmail.com',
+    upVotes: 86,
+    downVotes: 12,
+    description: '',
+    title: '',
   },
   {
-    id: 'FPtITmtjWhQ',
-    sharedBy: 'someone@gmail.com',
+    youtubeId: 'FPtITmtjWhQ',
+    userEmail: 'someone@gmail.com',
+    upVotes: 86,
+    downVotes: 12,
+    description: '',
+    title: '',
   },
 ];
 
@@ -25,31 +38,22 @@ const key = 'AIzaSyBqi9Po4moldIyK002uTe50vxsbxjtwOtQ';
 
 const MovieListPage: React.FC = (props) => {
   // TODO: handle load more
-  // TODO: get info from youtube
 
   const [ movies, setMovies ] = useState<MovieData[]>([]);
 
   useEffect(() => {
-    const ids = sharedList.map(shared => shared.id);
-    console.log(`https://www.googleapis.com/youtube/v3/videos?id=${ids.join(',')}
-    &key=${key}
-    &part=snippet,contentDetails,statistics,status`);
+    const ids = sharedList.map(shared => shared.youtubeId);
 
     fetch(`https://www.googleapis.com/youtube/v3/videos?id=${ids.join(',')}&key=${key}&part=snippet,contentDetails,statistics,status`)
       .then(res => res.json())
       .then(
         (result) => {
-          console.log(result.items.length);
-          setMovies(result.items.map((item: any) => {
-            return {
-              title: item.snippet.title,
-              userEmail: 'someone@gmail.com',
-              description: item.snippet.description,
-              upVotes: 86,
-              downVotes: 12,
-              youtubeId: item.id,
-            };
-          }));
+          // TODO: Error handling,  id not found...
+          setMovies(sharedList.map((value, index) => ({
+            ...value,
+            title: result.items[index].snippet.title,
+            description: result.items[index].snippet.description,
+          })));
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
