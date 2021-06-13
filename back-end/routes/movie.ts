@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import Debug from 'debug';
 import { getMovies, Movie, shareAMovie } from '../services/movie';
+import auth from '../middleware/auth';
 
 const router = express.Router();
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -15,7 +16,7 @@ router.get('/', async (req: Request, res: Response) => {
   }
 });
 
-router.post('/share', async (req: any, res: Response) => {
+router.post('/share', auth, async (req: any, res: Response) => {
   if(!req.body.youtubeURL){
     res.status(400).send('Invalid details!');
     return;

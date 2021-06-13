@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { 
   Switch,
   Route,
@@ -11,32 +11,34 @@ import AuthenticationForm from './app/features/auth/AuthenticationForm';
 import MovieListPage from './app/features/movie/pages/MovieListPage';
 import Button from './app/components/button/Button';
 import ShareAMoviePage from './app/features/movie/pages/ShareAMoviePage';
+import { GlobalContext } from './app/context/GlobalState';
+import { isNullOrWhitespace } from './app/utils/string';
 
 const App: React.FC = () => {
-  const [ isLoggedIn, setIsLoggedIn ] = useState(false);
   const history = useHistory();
+
+  const { token, email, loggedOut } = useContext(GlobalContext);
 
   const handleShareAMovie = () => {
     history.push('/share');
   };
 
   const handleLogout = () => {
-    // Do logout procedure from auth module
-    setIsLoggedIn(false);
+    loggedOut();
   };
 
   const renderMainPage = () => {
     let actions: React.ReactElement | null = null;
-    if (isLoggedIn) {
+    if (!isNullOrWhitespace(token)) {
       actions = (
         <div className='actionContainer'>
-          <p>Welcome someone@email.com</p>
+          <p>{email || ''}</p>
           <Button onClick={handleShareAMovie}>Share a movie</Button>
           <Button onClick={handleLogout}>Logout</Button>
         </div>
       );
     } else {
-      actions = <AuthenticationForm onLogin={() => setIsLoggedIn(true)}/>;
+      actions = <AuthenticationForm />;
     }
 
     return (

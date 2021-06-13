@@ -8,6 +8,14 @@ const initialState: AppState = {
   updateMovieList: () => {
     alert('unknown updateMovieList');
   },
+  loggedIn: () => {
+    alert('unknown loggedIn');
+  },
+  loggedOut: () => {
+    alert('unknown loggedOut');
+  },
+  token: '',
+  email: '',
 };
 
 // create context
@@ -22,11 +30,23 @@ export const GlobalProvider: React.FC = (props) => {
     dispatch({ type: 'UPDATE_MOVIE_LIST', payload: movies });
   };
 
+  const loggedIn = (token: string, email: string) => {
+    dispatch({ type: 'LOGGED_IN', payload: { email, token } });
+  };
+
+  const loggedOut = () => {
+    dispatch({ type: 'LOGGED_OUT', payload: undefined });
+  };
+
   return (
     <GlobalContext.Provider
       value={{
         movies: state.movies,
         updateMovieList,
+        loggedIn,
+        loggedOut,
+        token: state.token,
+        email: state.email,
       }}
     >
       {props.children}

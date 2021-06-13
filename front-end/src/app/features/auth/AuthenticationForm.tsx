@@ -1,18 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Button from 'src/app/components/button/Button';
 import Input from 'src/app/components/input/Input';
 import './AuthenticationForm.css';
 import * as Yup from 'yup';
+import { GlobalContext } from 'src/app/context/GlobalState';
 
-type AuthenticationFormProps = {
-  onLogin: () => void;
-}
-
-const AuthenticationForm: React.FC<AuthenticationFormProps> = (props) => {
-  const {
-    onLogin,
-  } = props;
-
+const AuthenticationForm: React.FC = () => {
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
   const [ emailTouched, setEmailTouched ] = useState(false);
@@ -20,12 +13,34 @@ const AuthenticationForm: React.FC<AuthenticationFormProps> = (props) => {
   const [ isEmailError, setIsEmailError ] = useState(false);
   const [ isPasswordError, setIsPasswordError ] = useState(false);
 
-  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const { loggedIn } = useContext(GlobalContext);
+
+  const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     
     if (isEmailValid(email) && isPasswordValid(password)) {
-      // Do login procedure
-      onLogin();
+      fetch(`${process.env.REACT_APP_HOST}/api/auth/login-or-register`, {
+        method: 'POST',
+        headers: new Headers({ 
+          'content-type': 'application/json',
+        }),
+        mode: 'cors',
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      })
+        .then(async (res: Response) => {
+          if (res.status === 401) {
+            throw('Wrong email or password');
+          }
+          
+          const token = await res.text();
+          loggedIn(token, email);
+        })
+        .catch((err) => {
+          alert(err);
+        });
     }
   };
 
