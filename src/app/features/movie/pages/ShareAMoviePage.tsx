@@ -6,13 +6,16 @@ import * as Yup from 'yup';
 import { GlobalContext } from 'src/app/context/GlobalState';
 import { Movie } from 'src/app/context/Movie';
 import { getYoutubeId } from '../util';
+import { useHistory } from 'react-router-dom';
 
 const ShareAMoviePage: React.FC = () => {
   const [ url, setUrl ] = useState('');
   const [ urlTouched, setUrlTouched ] = useState(false);
   const [ isURLError, setIsURLError ] = useState(false);
+  const [ isLoading, setIsLoading ] = useState(false);
 
   const { movies, updateMovieList } = useContext(GlobalContext);
+  const history = useHistory();
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -36,6 +39,8 @@ const ShareAMoviePage: React.FC = () => {
 
       const newMovies = [ ...movies, movie ];
 
+      setIsLoading(true);
+
       fetch('https://content.dropboxapi.com/2/files/upload', {
         method: 'POST',
         headers: {
@@ -50,9 +55,11 @@ const ShareAMoviePage: React.FC = () => {
       })
         .then(() => {
           updateMovieList(newMovies);
+          history.push('/');
         })
         .catch((err) => {
           alert(err);
+          setIsLoading(false);
         });
     }
   };
@@ -88,7 +95,7 @@ const ShareAMoviePage: React.FC = () => {
           onBlur={handleURLBlur}
           isError={isURLError}
         />
-        <Button disabled={!isURLValid(url)}>Share</Button>
+        <Button disabled={!isURLValid(url) || isLoading}>Share</Button>
       </div>
     </form>
   );
