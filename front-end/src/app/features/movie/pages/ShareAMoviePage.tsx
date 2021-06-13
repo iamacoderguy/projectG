@@ -4,8 +4,6 @@ import Input from 'src/app/components/input/Input';
 import './ShareAMoviePage.css';
 import * as Yup from 'yup';
 import { GlobalContext } from 'src/app/context/GlobalState';
-import { Movie } from 'src/app/context/Movie';
-import { getYoutubeId } from '../util';
 import { useHistory } from 'react-router-dom';
 
 const ShareAMoviePage: React.FC = () => {
