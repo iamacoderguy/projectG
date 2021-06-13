@@ -5,11 +5,13 @@ import express from 'express';
 const app = express();
 
 import logging from './logging';
+import cors from './cors';
 import routes from './routes';
 import config from './config';
 import prod from './prod';
 
 logging(app);
+cors(app);
 routes(app);
 config();
 prod(app);
