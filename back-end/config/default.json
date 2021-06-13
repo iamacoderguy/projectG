@@ -1,5 +1,5 @@
 {
-    "name": "funny movies auth service",
+    "name": "funny movies api",
     "jwtPrivateKey": "",
     "dropboxKey": "",
     "dropboxPath": ""
