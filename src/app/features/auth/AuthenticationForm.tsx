@@ -63,7 +63,7 @@ const AuthenticationForm: React.FC<AuthenticationFormProps> = (props) => {
   const isPasswordValid = (value: string) => value !== '';
 
   return (
-    <form action='' className='form' id='form' onSubmit={handleFormSubmit}>
+    <form action='' className='authForm' id='authForm' onSubmit={handleFormSubmit}>
       <Input
         type='email'
         placeholder='email'
