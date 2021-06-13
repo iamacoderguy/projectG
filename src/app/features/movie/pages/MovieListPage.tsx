@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Movie from '../components/Movie';
-import { Movie as MovieData } from '../Movie';
+import { Movie as MovieData } from 'src/app/context/Movie';
 import './MovieListPage.css';
 
 // TODO: Move to env

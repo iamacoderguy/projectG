@@ -1,20 +1,59 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Button from 'src/app/components/button/Button';
 import Input from 'src/app/components/input/Input';
 import './ShareAMoviePage.css';
 import * as Yup from 'yup';
+import { GlobalContext } from 'src/app/context/GlobalState';
+import { Movie } from 'src/app/context/Movie';
+import { getYoutubeId } from '../util';
 
 const ShareAMoviePage: React.FC = () => {
   const [ url, setUrl ] = useState('');
   const [ urlTouched, setUrlTouched ] = useState(false);
   const [ isURLError, setIsURLError ] = useState(false);
 
+  const { movies, updateMovieList } = useContext(GlobalContext);
+
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     
     if (isURLValid(url)) {
-      // Do share procedure
-      alert('Share: ' + url);
+      const id = getYoutubeId(url);
+
+      if (!id) {
+        alert('Cannot get Youtube ID from the url');
+        return;
+      }
+
+      const movie: Movie = {
+        youtubeId: id,
+        userEmail: 'someone@gmail.com',
+        upVotes: 0,
+        downVotes: 0,
+        description: '',
+        title: '',
+      };
+
+      const newMovies = [ ...movies, movie ];
+
+      fetch('https://content.dropboxapi.com/2/files/upload', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${process.env.REACT_APP_DROPBOX_KEY}`,
+          'Content-Type': 'application/octet-stream',
+          'Dropbox-API-Arg': JSON.stringify({
+            path: process.env.REACT_APP_DROPBOX_PATH,
+            mode: { '.tag': 'overwrite' },
+          }),
+        },
+        body: JSON.stringify(newMovies),
+      })
+        .then(() => {
+          updateMovieList(newMovies);
+        })
+        .catch((err) => {
+          alert(err);
+        });
     }
   };
 
