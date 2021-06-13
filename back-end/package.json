@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "test": "jest --verbose --coverage",
-    "start": "ts-node index.ts",
+    "postinstall": "tsc",
+    "start": "node dist/index.js",
     "debug": "cross-env-shell DEBUG='funny-movies:*' g_jwtPrivateKey='1234' \"ts-node-dev index.ts\"",
     "test_debug": "cross-env DEBUG='funny-movies:*' jest --watch --verbose"
   },
