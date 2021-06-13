@@ -1,0 +1,37 @@
+{
+  "name": "funny-movies-api",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest --verbose --coverage",
+    "start": "ts-node index.ts",
+    "debug": "cross-env-shell DEBUG='servera:*' a_jwtPrivateKey='1234' \"nodemon index.js\"",
+    "test_debug": "cross-env DEBUG='servera:*' jest --watch --verbose"
+  },
+  "dependencies": {
+    "compression": "^1.7.4",
+    "config": "^3.3.6",
+    "debug": "^4.3.1",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "helmet": "^4.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "typescript": "^4.3.2",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "@types/compression": "^1.7.0",
+    "@types/config": "^0.0.38",
+    "@types/debug": "^4.1.5",
+    "@types/jsonwebtoken": "^8.5.1",
+    "@types/morgan": "^1.9.2",
+    "@types/node": "^15.12.2",
+    "@typescript-eslint/eslint-plugin": "^4.26.1",
+    "@typescript-eslint/parser": "^4.26.1",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.28.0",
+    "nodemon": "^2.0.7",
+    "ts-node": "^10.0.0"
+  }
+}
