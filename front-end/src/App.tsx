@@ -14,6 +14,11 @@ import ShareAMoviePage from './app/features/movie/pages/ShareAMoviePage';
 import { GlobalContext } from './app/context/GlobalState';
 import { isNullOrWhitespace } from './app/utils/string';
 
+// TODO: Handle responsive
+// TODO: Write unit tests and integration tests
+// TODO: Deploy
+// TODO: Up vote and down vote
+
 const App: React.FC = () => {
   const history = useHistory();
 
