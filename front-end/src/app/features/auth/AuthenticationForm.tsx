@@ -32,7 +32,7 @@ const AuthenticationForm: React.FC = () => {
       })
         .then(async (res: Response) => {
           if (res.status === 401) {
-            throw('Wrong email or password');
+            throw(await res.text());
           }
           
           const token = await res.text();

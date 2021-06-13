@@ -16,7 +16,7 @@ router.get('/', async (req: Request, res: Response) => {
   }
 });
 
-router.post('/share', auth, async (req: any, res: Response) => {
+router.post('/', auth, async (req: any, res: Response) => {
   if(!req.body.youtubeURL){
     res.status(400).send('Invalid details!');
     return;

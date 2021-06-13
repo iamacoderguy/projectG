@@ -14,7 +14,7 @@ const ShareAMoviePage: React.FC = () => {
   const [ isURLError, setIsURLError ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(false);
 
-  const { movies, updateMovieList } = useContext(GlobalContext);
+  const { token, updateMovieList } = useContext(GlobalContext);
   const history = useHistory();
 
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -25,52 +25,31 @@ const ShareAMoviePage: React.FC = () => {
       return;
     }
 
-    const id = getYoutubeId(url);
-
-    if (!id) {
-      alert('Cannot get Youtube ID from the url');
-      return;
-    }
-
-    const movie: Movie = {
-      youtubeId: id,
-      userEmail: 'someone@gmail.com',
-      upVotes: 0,
-      downVotes: 0,
-      description: '',
-      title: '',
-    };
-
     setIsLoading(true);
-    const newMovies = await shareAMovie(movie);
-    if (!newMovies) {
-      setIsLoading(false);
-      return;
-    }
 
-    updateMovieList(newMovies);
-    history.push('/');
-  };
-
-  const shareAMovie = async (movie: Movie) => {
-    const newMovies = [ ...movies, movie ];
     try {
-      await fetch('https://content.dropboxapi.com/2/files/upload', {
+      const res = await fetch(`${process.env.REACT_APP_HOST}/api/movie`, {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${process.env.REACT_APP_DROPBOX_KEY}`,
-          'Content-Type': 'application/octet-stream',
-          'Dropbox-API-Arg': JSON.stringify({
-            path: process.env.REACT_APP_DROPBOX_PATH,
-            mode: { '.tag': 'overwrite' },
-          }),
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(newMovies),
+        mode: 'cors',
+        body: JSON.stringify({
+          youtubeURL: url,
+        }),
       });
 
-      return newMovies;
+      if (res.status === 401) {
+        throw(await res.text());
+      }
+
+      const newMovies = await res.json();
+      updateMovieList(newMovies);
+      history.push('/');
     } catch (error) {
       alert(error);
+      setIsLoading(false);
       return;
     }
   };

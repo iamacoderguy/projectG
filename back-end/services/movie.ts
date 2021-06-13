@@ -62,7 +62,7 @@ export const shareAMovie = async (youtubeURL: string, email: string) => {
   const movies = await getMovies();
 
   const newMovies = [ ...movies, movie ];
-  const result = await request.post('https://content.dropboxapi.com/2/files/upload', {
+  await request.post('https://content.dropboxapi.com/2/files/upload', {
     headers: {
       Authorization: `Bearer ${config.get('dropboxKey')}`,
       'Content-Type': 'application/octet-stream',
@@ -74,7 +74,7 @@ export const shareAMovie = async (youtubeURL: string, email: string) => {
     body: JSON.stringify(newMovies),
   });
 
-  return JSON.parse(result) as Movie[];
+  return newMovies;
 };
 
 const getYoutubeId = (url: string) => {
