@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
+import { 
+  Switch,
+  Route,
+  useHistory,
+} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
 import AuthenticationForm from './app/features/auth/AuthenticationForm';
 import MovieListPage from './app/features/movie/pages/MovieListPage';
 import Button from './app/components/button/Button';
+import ShareAMoviePage from './app/features/movie/pages/ShareAMoviePage';
 
 const App: React.FC = () => {
   const [ isLoggedIn, setIsLoggedIn ] = useState(false);
+  const history = useHistory();
 
   const handleShareAMovie = () => {
-    // Do share a movie procedure from movie module
-    alert('Share a movie');
+    history.push('/share');
   };
 
   const handleLogout = () => {
@@ -41,8 +47,16 @@ const App: React.FC = () => {
           </div>
           {actions}
         </nav>
-        {/* Get logged in user info from auth module and pass to movie */}
-        <MovieListPage />
+        <Switch>
+          <Route path="/" exact>
+            {/* Get logged in user info from auth module and pass to movie */}
+            <MovieListPage />
+          </Route>
+
+          <Route path="/share">
+            <ShareAMoviePage />
+          </Route>
+        </Switch>
       </>
     );
   };

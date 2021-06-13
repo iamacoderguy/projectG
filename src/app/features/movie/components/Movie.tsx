@@ -1,5 +1,5 @@
 import React from 'react';
-import { Movie as MovieData } from '../Movie';
+import { Movie as MovieData } from 'src/app/context/Movie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-regular-svg-icons';
 import './Movie.css';
